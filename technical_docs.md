@@ -1,58 +1,91 @@
-# Documentación Técnica: PortalHnoaRRHH v1.0
+# Documentación Técnica: PortalHnoaRRHH v2.0 (Premium)
 
-## 1. Visión General
-El Portal de RRHH es una aplicación puente diseñada para modernizar la interacción de los agentes (empleados) con el sistema de gestión de personal legado (Chronos/Factu30). Permite la autogestión de licencias, consulta de fichadas y visualización de novedades de liquidación.
+Esta documentación cubre la arquitectura, sistemas de seguridad y analíticas del portal después de la actualización de robustez y diseño de la Fase 6.
 
-## 2. Arquitectura de Software
-- **Core**: Laravel 8.75 (PHP 7.3+)
-- **Frontend**: Livewire 2.0 + Alpine.js (TALL Stack parcial)
-- **Persistencia**: MySQL (MariaDB compatible)
+## 1. Arquitectura del Sistema
+- **Backend**: Laravel 8.75 (PHP 7.4)
+- **Frontend Interactivo**: Livewire 2.10 (TALL Stack parcial)
+- **Estética**: Custom Design System basado en Bootstrap 5.3 + Glassmorphism.
+- **Gráficos**: ApexCharts (vía CDN).
 
-## 3. Integración de Datos (Modelo Híbrido)
-El sistema utiliza dos conexiones de base de datos principales definidas en `config/database.php`:
+---
 
-| Conexión | Propósito | Tecnología |
-| :--- | :--- | :--- |
-| `mysql` | Datos locales del portal (Usuarios, Roles, Licencias, Caché) | MySQL Local |
-| `reloj` | Datos de hardware de fichaje y sistema legado | MySQL Externo (10.12.4.2) |
+## 2. Persistencia y Bases de Datos 🗄️
 
-### Entidades Legadas Cruciales:
-- `t_agente`: Tabla maestra de empleados en el sistema legado.
-- `t_fichadas`: Registro bruto de marcas de reloj.
-- `t_inasist`: Registro de inasistencias y licencias procesadas.
-- `t_age_tarj`: Vinculación entre Agente y Número de Tarjeta/Reloj.
+El sistema utiliza un **Modelo Híbrido** de persistencia distribuido en dos conexiones principales (`config/database.php`):
 
-## 4. Lógica de Negocio Crítica
+### 2.1. Conexión `mysql` (Local)
+Almacena los datos propios de la aplicación web:
+- `t_agente_roles`: Pivot para el control de acceso.
+- `t_solicitudes_licencias`: Gestión de pedidos pendientes/aprobados.
+- `t_audit_logs`: Registro histórico de acciones administrativas (AuditTrail).
+- `t_fichadas` (Sincronizadas): Caché local de las fichadas del reloj.
 
-### 4.1. Sincronización de Fichadas (`FichadaService`)
-El sistema no consulta el reloj en tiempo real para cada vista. En su lugar:
-1. Identifica la tarjeta activa del agente (`t_age_tarj`).
-2. Busca la última fecha sincronizada localmente.
-3. Descarga de la conexión `reloj` solo las fichadas posteriores a esa fecha.
-4. Las inserta en la tabla local `t_fichadas`.
+### 2.2. Conexión `reloj` (Legacy)
+Conexión de solo lectura/escritura controlada al sistema **Factu30/Chronos** (IP: 10.12.4.2):
+- `t_agente`: Maestro de empleados.
+- `t_fichadas`: Registro original de hardware.
+- `t_inasist`: Tabla donde el portal inyecta licencias aprobadas.
 
-### 4.2. Cálculo de Horas y Estados (E/S)
-Dado que las fichadas brutas a veces no discriminan entre Entrada (E) y Salida (S), el `FichadaService` aplica una lógica de inferencia:
-- **Tolerancia**: 9000 segundos (2.5 horas).
-- **Inferencia**: Si una ficihada ocurre dentro del rango de tolerancia de la "Hora de Entrada" definida en el horario del agente, se marca como `E`. Si está cerca de la "Hora de Salida", se marca como `S`.
-- **Casos 24hs**: Si el agente tiene entrada y salida a la misma hora (turnos rotativos o 24hs), el sistema alterna el estado basado en la marca anterior.
+---
 
-### 4.3. Reglas de Facturación (`FacturacionService`)
-El cálculo de haberes se basa en "Artículos" de inasistencia:
-- **Regla 14A (Corta Duración)**:
-    - 2 días en el mes -> 25% descuento.
-    - 3 días en el mes -> 50% descuento.
-    - >3 días en el mes -> 100% descuento.
-- **Descuentos Directos**: Códigos como `AUS` (Ausente), `SUS` (Suspendido) o `PAR` (Paro) disparan automáticamente el 100% de descuento.
+## 3. Seguridad y Control de Acceso (RBAC) 🛡️
 
-## 5. Flujo de Licencias
-1. El Agente solicita una licencia (Modelo `SolicitudLicencia`).
-2. El Jefe/RRHH recibe la notificación en el componente Livewire `GestionarLicencias`.
-3. Al aprobar (`LicenciaService::aprobarSolicitud`):
-    - Se cambia el estado en el portal.
-    - Se mapea el `TipoLicencia` al `codigo_legacy` correspondiente en `t_artic`.
-    - **Sincronización Inversa**: Se inyectan registros día por día en la tabla legado `t_inasist` para que el sistema de sueldos viejo lo reconozca.
+### 3.1. Roles Definidos
+El sistema utiliza el método `hasRole()` en el modelo `Agente` para validar permisos:
+- `ADMIN`: Acceso total.
+- `RRHH`: Gestión de personal y licencias.
+- `JEFE`: Visualización de fichadas de equipo y aprobación de licencias.
+- `GESTOR_NOVEDADES`: Acceso exclusivo al módulo de noticias.
 
-## 6. Mantenimiento y Troubleshooting
-- **Logs**: Errores de conexión con la base `reloj` se registran en `storage/logs/laravel.log`.
-- **Caché**: Se recomienda limpiar caché de configuración tras cambios en el archivo `.env` o `config/database.php` mediante `php artisan config:clear`.
+### 3.2. Auditoría (Caja Negra)
+Se implementó el `AuditService` que registra automáticamente:
+- **Evento**: Qué acción se realizó (ej: `APROBAR_LICENCIA`).
+- **Autor**: Quién lo hizo (`user_id`).
+- **Metadata**: IP de origen y Navegador (`User-Agent`).
+- **Payload**: Detalles técnicos en formato JSON de qué se modificó.
+
+---
+
+## 4. Flujo de Datos 🔄
+
+```mermaid
+graph TD
+    A[Reloj de Fichaje] -->|t_fichadas| B(Base Legacy: Reloj)
+    B -->|Sync Proceso| C[Portal: DB Local]
+    C -->|AnalyticsService| D[Dashboard: ApexCharts]
+    E[Admin/RRHH] -->|Aprueba Licencia| F[LicenciaService]
+    F -->|Insert| B
+    F -->|Log| G[Tabla Audit Logs]
+```
+
+---
+
+## 5. Troubleshooting: Resolución de Errores Comunes 🛠️
+
+### 5.1. "SQLSTATE[HY000] [2002] Connection refused" (Base Reloj)
+- **Causa**: El servidor legado no permite la conexión desde la IP del portal.
+- **Solución**: Verificar que la IP del servidor de producción esté en la lista blanca (whitelist) del servidor 10.12.4.2. Usar `telnet 10.12.4.2 3306` para probar conectividad.
+
+### 5.2. "419 Page Expired"
+- **Causa**: Token CSRF inválido o sesión expirada.
+- **Solución**: Limpiar cookies del navegador o aumentar `SESSION_LIFETIME` en el `.env`.
+
+### 5.3. "MassAssignmentException"
+- **Causa**: Intento de grabar un campo no permitido en `$fillable`.
+- **Solución**: Revisar el modelo correspondiente. Por seguridad, `age_password_hash` está bloqueado para asignación masiva.
+
+### 5.4. Gráficos no aparecen en el Dashboard
+- **Causa**: Caché de vistas vieja o falta de conexión a Internet (CDN de ApexCharts).
+- **Solución**: Ejecutar `php artisan view:clear` y verificar salida de consola (F12) por errores de carga de scripts.
+
+---
+
+## 6. Mantenimiento Preventivo
+1. **Logs del Sistema**: Revisar periódicamente `storage/logs/laravel.log`.
+2. **Backups**: Realizar backup diario de la base `mysql` local (donde viven los roles y las solicitudes de licencias nuevas).
+3. **Limpieza de Auditoría**: La tabla `t_audit_logs` puede crecer mucho. Se recomienda un proceso de purga anual para registros de más de 2 años.
+
+---
+
+*Documentación generada por Antigravity AI - Seguridad Social & RRHH.*
