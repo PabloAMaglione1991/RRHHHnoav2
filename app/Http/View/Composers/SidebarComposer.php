@@ -46,7 +46,7 @@ class SidebarComposer
         foreach ($modulos as $mod) {
             // NORMALIZACIÓN: Convertimos 'mis-fichadas' o 'mis_fichadas' en 'mis.fichadas'
             $moduloClaveBD = $mod->modulo_clave;
-            $routeMapped = str_replace(['-', '_'], '.', $moduloClaveBD);
+            $routeMapped = strtolower(str_replace(['-', '_'], '.', $moduloClaveBD));
            
             $visible = false;
 
