@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 
 
+use Illuminate\Support\Facades\Log;
+
 class SidebarComposer
 {
     /**
@@ -98,6 +100,7 @@ class SidebarComposer
                 } else {
                     $finalUrl = url('/' . ltrim($moduloClaveBD, '/'));
                 }
+                \Log::info("DEBUG SIDEBAR: DB_Key: '{$moduloClaveBD}' | Mapped: '{$routeMapped}' | Final_URL: '{$finalUrl}'");
 
 
                 $sidebarItems[] = [
