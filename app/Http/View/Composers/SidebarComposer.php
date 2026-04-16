@@ -50,11 +50,11 @@ class SidebarComposer
 
         foreach ($modulos as $mod) {
             // NORMALIZACIÓN ROBUSTA:
-            // 1. Quitar acentos y caracteres especiales
-            // 2. Reemplazar espacios, guiones y guiones bajos por puntos
-            // 3. Convertir a minúsculas
-            $moduloClaveBD = $mod->modulo_clave;
+            // Usamos modulo_clave, pero si está vacío usamos el nombre como fallback
+            $moduloClaveBD = $mod->modulo_clave ?: $mod->modulo_nombre;
             
+            if (!$moduloClaveBD) continue; // Si todo está vacío, ignoramos
+
             $routeMapped = strtolower($moduloClaveBD);
             $routeMapped = str_replace(['á', 'é', 'í', 'ó', 'ú', 'ñ'], ['a', 'e', 'i', 'o', 'u', 'n'], $routeMapped);
             $routeMapped = str_replace([' ', '-', '_'], '.', $routeMapped);
