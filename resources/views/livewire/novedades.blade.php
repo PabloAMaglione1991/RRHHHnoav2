@@ -1,102 +1,104 @@
-<div class="row mb-5">
-    <div class="col-md-12">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h4 class="m-0 fw-bold text-primary">
-                <i class="bi bi-megaphone-fill me-2"></i>Novedades Institucionales
-            </h4>
-        </div>
-        
-        <div class="row g-4">
-            @foreach($novedades as $novedad)
-                @php
-                    $tipo = $novedad->nov_tipo ?? 'info';
-                    $config = match ($tipo) {
-                        'danger' => [
-                            'bg' => 'rgba(239, 68, 68, 0.1)',
-                            'text' => '#ef4444',
-                            'border' => '#ef4444',
-                            'label' => 'Importante',
-                            'icon' => 'bi-exclamation-triangle-fill'
-                        ],
-                        'warning' => [
-                            'bg' => 'rgba(245, 158, 11, 0.1)',
-                            'text' => '#f59e0b',
-                            'border' => '#f59e0b',
-                            'label' => 'Atención',
-                            'icon' => 'bi-info-circle-fill'
-                        ],
-                        'success' => [
-                            'bg' => 'rgba(16, 185, 129, 0.1)',
-                            'text' => '#10b981',
-                            'border' => '#10b981',
-                            'label' => 'Novedad',
-                            'icon' => 'bi-check-circle-fill'
-                        ],
-                        default => [
-                            'bg' => 'rgba(59, 130, 246, 0.1)',
-                            'text' => '#3b82f6',
-                            'border' => '#3b82f6',
-                            'label' => 'Información',
-                            'icon' => 'bi-info-circle-fill'
-                        ]
-                    };
-                @endphp
-                <div class="col-md-4 mb-3">
-                    <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden h-100 border-0 shadow-sm animate__animated animate__fadeInUp" style="border-top: 4px solid {{ $config['border'] }} !important; animation-delay: {{ $loop->index * 0.1 }}s">
-                        <div class="card-body d-flex flex-column">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <span class="badge rounded-pill px-3 py-2 d-flex align-items-center" style="background: {{ $config['bg'] }}; color: {{ $config['text'] }}; font-weight: 600; font-size: 0.75rem;">
-                                    <i class="bi {{ $config['icon'] }} me-2"></i> {{ $config['label'] }}
-                                </span>
-                                <small class="text-muted fw-medium">
-                                    {{ \Carbon\Carbon::parse($novedad->nov_fecha_publicacion)->format('d/m/Y') }}
-                                </small>
-                            </div>
-                            
-                            <h5 class="card-title fw-bold text-dark mb-3">{{ $novedad->nov_titulo }}</h5>
-                            
-                            <p class="card-text text-secondary mb-4 flex-grow-1" style="font-size: 0.95rem; line-height: 1.6;">
-                                {{ Str::limit($novedad->nov_contenido_largo, 120) }}
-                            </p>
-                            
-                            <button wire:click="selectNovedad({{ $novedad->nov_id }})"
-                                class="btn w-100 rounded-pill py-2 fw-bold d-flex align-items-center justify-content-center transition-all"
-                                style="background: {{ $config['bg'] }}; color: {{ $config['text'] }}; border: none;">
-                                Leer contenido <i class="bi bi-arrow-right ms-2 mt-1"></i>
-                            </button>
-                        </div>
+<div class="mb-12">
+    <div class="flex justify-between items-center mb-8">
+        <h4 class="text-2xl font-bold text-slate-800 flex items-center">
+            <i class="bi bi-megaphone-fill text-indigo-600 mr-3"></i>Novedades Institucionales
+        </h4>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        @foreach($novedades as $novedad)
+            @php
+                $tipo = $novedad->nov_tipo ?? 'info';
+                $config = match ($tipo) {
+                    'danger' => [
+                        'bg' => 'bg-rose-50',
+                        'text' => 'text-rose-600',
+                        'border' => 'border-rose-500',
+                        'label' => 'Importante',
+                        'icon' => 'bi-exclamation-triangle-fill',
+                        'btn' => 'bg-rose-50 text-rose-600 hover:bg-rose-100'
+                    ],
+                    'warning' => [
+                        'bg' => 'bg-amber-50',
+                        'text' => 'text-amber-600',
+                        'border' => 'border-amber-500',
+                        'label' => 'Atención',
+                        'icon' => 'bi-info-circle-fill',
+                        'btn' => 'bg-amber-50 text-amber-600 hover:bg-amber-100'
+                    ],
+                    'success' => [
+                        'bg' => 'bg-emerald-50',
+                        'text' => 'text-emerald-600',
+                        'border' => 'border-emerald-500',
+                        'label' => 'Novedad',
+                        'icon' => 'bi-check-circle-fill',
+                        'btn' => 'bg-emerald-50 text-emerald-600 hover:bg-emerald-100'
+                    ],
+                    default => [
+                        'bg' => 'bg-indigo-50',
+                        'text' => 'text-indigo-600',
+                        'border' => 'border-indigo-500',
+                        'label' => 'Información',
+                        'icon' => 'bi-info-circle-fill',
+                        'btn' => 'bg-indigo-50 text-indigo-600 hover:bg-indigo-100'
+                    ]
+                };
+            @endphp
+            <div class="group h-full flex flex-col bg-white rounded-2xl shadow-sm hover:shadow-xl border border-slate-200 overflow-hidden transition-all duration-300 border-t-4 {{ $config['border'] }}">
+                <div class="p-6 flex flex-col h-full">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold {{ $config['bg'] }} {{ $config['text'] }}">
+                            <i class="bi {{ $config['icon'] }} mr-2"></i> {{ $config['label'] }}
+                        </span>
+                        <span class="text-xs font-medium text-slate-400">
+                            {{ \Carbon\Carbon::parse($novedad->nov_fecha_publicacion)->format('d/m/Y') }}
+                        </span>
                     </div>
+                    
+                    <h5 class="text-lg font-bold text-slate-800 mb-3 group-hover:text-indigo-600 transition-colors">{{ $novedad->nov_titulo }}</h5>
+                    
+                    <p class="text-slate-600 text-sm leading-relaxed mb-6 flex-grow">
+                        {{ Str::limit($novedad->nov_contenido_largo, 120) }}
+                    </p>
+                    
+                    <button wire:click="selectNovedad({{ $novedad->nov_id }})" class="w-full py-2.5 rounded-xl font-bold flex items-center justify-center transition-all cursor-pointer {{ $config['btn'] }}">
+                        Leer contenido <i class="bi bi-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                    </button>
                 </div>
-            @endforeach
-        </div>
+            </div>
+        @endforeach
     </div>
 
-    <!-- Modal de Lectura Premium -->
+    <!-- Modal de Lectura (Tailwind native modal approach would be better, but staying with Bootstrap Modal for JS stability if requested, applying Tailwind styles inside) -->
     <div class="modal fade" id="modalLeerNovedad" tabindex="-1" aria-hidden="true" wire:ignore.self>
         <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content border-0 glass-effect" style="border-radius: 24px; overflow: hidden;">
+            <div class="modal-content !border-0 !rounded-[2rem] shadow-2xl overflow-hidden bg-white/90 backdrop-blur-xl">
                 @if($selectedNovedad)
-                    <div class="modal-header border-0 pb-0 pt-4 px-4">
-                        <h4 class="modal-title fw-bold text-dark">{{ $selectedNovedad->nov_titulo }}</h4>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body p-4">
-                        <div class="d-flex align-items-center mb-4 text-muted small">
-                            <i class="bi bi-calendar-event me-2"></i>
-                            <span class="fw-medium">{{ \Carbon\Carbon::parse($selectedNovedad->nov_fecha_publicacion)->format('d \d\e F, Y') }}</span>
+                    <div class="p-8">
+                        <div class="flex justify-between items-start mb-6">
+                            <h4 class="text-2xl font-bold text-slate-800">{{ $selectedNovedad->nov_titulo }}</h4>
+                            <button type="button" class="p-2 hover:bg-slate-100 rounded-full transition-colors" data-bs-dismiss="modal" aria-label="Close">
+                                <i class="bi bi-x-lg text-slate-400 text-xl"></i>
+                            </button>
                         </div>
-                        <div class="novedad-contenido" style="white-space: pre-wrap; font-size: 1.1rem; line-height: 1.8; color: #4b5563;">
+                        
+                        <div class="flex items-center text-slate-500 text-sm mb-8 bg-slate-50 w-fit px-4 py-1.5 rounded-full">
+                            <i class="bi bi-calendar-event mr-2 text-indigo-600"></i>
+                            <span class="font-medium">{{ \Carbon\Carbon::parse($selectedNovedad->nov_fecha_publicacion)->format('d \d\e F, Y') }}</span>
+                        </div>
+                        
+                        <div class="text-slate-600 text-lg leading-relaxed whitespace-pre-wrap max-h-[60vh] overflow-y-auto pr-4 custom-scrollbar">
                             {{ $selectedNovedad->nov_contenido_largo }}
                         </div>
-                    </div>
-                    <div class="modal-footer border-0 p-4">
-                        <button type="button" class="btn btn-light px-4 py-2 rounded-pill fw-bold" data-bs-dismiss="modal">Entendido</button>
+                        
+                        <div class="mt-10 flex justify-end">
+                            <button type="button" class="px-8 py-3 bg-slate-800 hover:bg-slate-900 text-white font-bold rounded-2xl transition-all shadow-lg hover:shadow-slate-200" data-bs-dismiss="modal">Entendido</button>
+                        </div>
                     </div>
                 @endif
             </div>
         </div>
     </div>
-
 
     <script>
         window.addEventListener('open-novedad-modal', event => {
@@ -105,5 +107,3 @@
         });
     </script>
 </div>
-
-

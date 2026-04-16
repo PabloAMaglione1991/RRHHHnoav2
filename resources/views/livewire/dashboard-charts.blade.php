@@ -1,41 +1,43 @@
-<div class="row mt-4 animate__animated animate__fadeInUp" style="animation-delay: 0.6s;">
-    <div class="col-md-12">
-        <h4 class="mb-4 fw-bold">Análisis e Insights</h4>
+<div class="mt-8">
+    <div class="mb-6">
+        <h4 class="text-xl font-bold text-slate-800">Análisis e Insights</h4>
     </div>
     
-    <!-- Gráfico de Tendencia de Asistencia -->
-    <div class="col-md-8 mb-4">
-        <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden overflow-hidden">
-            <div class="card-header bg-white border-0 pt-4 px-4">
-                <h5 class="fw-bold mb-0">Asistencia de la Semana</h5>
-                <p class="text-muted small">Cantidad de personas únicas fichando por día</p>
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Gráfico de Tendencia de Asistencia -->
+        <div class="lg:col-span-2">
+            <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden">
+                <div class="pt-6 px-6">
+                    <h5 class="text-lg font-bold text-slate-800">Asistencia de la Semana</h5>
+                    <p class="text-slate-500 text-sm">Cantidad de personas únicas fichando por día</p>
+                </div>
+                <div class="p-6">
+                    <div id="tendenciaChart"></div>
+                </div>
             </div>
-            <div class="card-body px-4 pb-4">
-                <div id="tendenciaChart"></div>
+        </div>
+
+        <!-- Gráfico de Distribución de Licencias -->
+        <div class="lg:col-span-1">
+            <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden h-full flex flex-col">
+                <div class="pt-6 px-6 text-center">
+                    <h5 class="text-lg font-bold text-slate-800">Licencias del Mes</h5>
+                </div>
+                <div class="p-6 flex-grow flex items-center justify-center">
+                    @if(count($licenciasData) > 0)
+                        <div id="licenciasDonut" class="w-full"></div>
+                    @else
+                        <div class="text-center py-12">
+                            <i class="bi bi-calendar-x text-slate-300 text-5xl mb-4"></i>
+                            <p class="text-slate-500 font-medium">Sin registros este mes</p>
+                        </div>
+                    @endif
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Gráfico de Distribución de Licencias -->
-    <div class="col-md-4 mb-4">
-        <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden overflow-hidden h-100">
-            <div class="card-header bg-white border-0 pt-4 px-4 text-center">
-                <h5 class="fw-bold mb-0">Licencias del Mes</h5>
-            </div>
-            <div class="card-body px-4 pb-4 d-flex align-items-center justify-content-center">
-                @if(count($licenciasData) > 0)
-                    <div id="licenciasDonut"></div>
-                @else
-                    <div class="text-center py-5">
-                        <i class="bi bi-calendar-x text-muted" style="font-size: 3rem;"></i>
-                        <p class="text-muted mt-2">Sin registros este mes</p>
-                    </div>
-                @endif
-            </div>
-        </div>
-    </div>
-
-    <script>
+    <script shadow>
         document.addEventListener('livewire:load', function () {
             // 1. Chart Tendencia
             var optionsTendencia = {
@@ -46,6 +48,7 @@
                 chart: {
                     type: 'area',
                     height: 300,
+                    fontFamily: 'Inter, sans-serif',
                     toolbar: { show: false },
                     zoom: { enabled: false }
                 },
@@ -64,12 +67,26 @@
                 xaxis: {
                     categories: @json($tendenciaLabels),
                     axisBorder: { show: false },
-                    axisTicks: { show: false }
+                    axisTicks: { show: false },
+                    labels: {
+                        style: { colors: '#64748b', fontWeight: 500 }
+                    }
                 },
-                yaxis: { labels: { show: true } },
+                yaxis: { 
+                    labels: { 
+                        show: true,
+                        style: { colors: '#64748b', fontWeight: 500 }
+                    } 
+                },
                 grid: {
-                    borderColor: '#f1f1f1',
+                    borderColor: '#f1f5f9',
                     xaxis: { lines: { show: false } }
+                },
+                tooltip: {
+                    theme: 'light',
+                    y: {
+                        formatter: function (val) { return val + " personas" }
+                    }
                 }
             };
             var chartTendencia = new ApexCharts(document.querySelector("#tendenciaChart"), optionsTendencia);
@@ -81,19 +98,46 @@
                     series: @json($licenciasData),
                     chart: {
                         type: 'donut',
-                        height: 300
+                        height: 320,
+                        fontFamily: 'Inter, sans-serif',
                     },
                     labels: @json($licenciasLabels),
-                    colors: ['#0088cc', '#2cc185', '#ffbb33', '#ff4444', '#aa66cc'],
-                    legend: { position: 'bottom' },
+                    colors: ['#6366f1', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6'],
+                    legend: { 
+                        position: 'bottom',
+                        horizontalAlign: 'center',
+                        fontSize: '13px',
+                        markers: { radius: 12 },
+                        itemMargin: { horizontal: 10, vertical: 5 }
+                    },
                     dataLabels: { enabled: false },
+                    stroke: { width: 0 },
                     plotOptions: {
                         pie: {
                             donut: {
-                                size: '70%',
+                                size: '75%',
                                 labels: {
                                     show: true,
-                                    total: { show: true, label: 'Días' }
+                                    name: {
+                                        show: true,
+                                        fontSize: '14px',
+                                        fontWeight: 600,
+                                        color: '#64748b'
+                                    },
+                                    value: {
+                                        show: true,
+                                        fontSize: '24px',
+                                        fontWeight: 700,
+                                        color: '#1e293b',
+                                        formatter: function (val) { return val }
+                                    },
+                                    total: { 
+                                        show: true, 
+                                        label: 'Total Días',
+                                        fontSize: '14px',
+                                        fontWeight: 600,
+                                        color: '#64748b'
+                                    }
                                 }
                             }
                         }
