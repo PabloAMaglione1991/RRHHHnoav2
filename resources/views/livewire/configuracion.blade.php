@@ -1,31 +1,25 @@
 <div>
-    <h2 class="text-3xl font-bold text-slate-800 mb-8 flex items-center">
+    <h2 class="text-3xl font-black text-slate-800 mb-8 flex items-center italic uppercase tracking-tighter">
         <i class="bi bi-gear-wide-connected text-indigo-600 mr-4"></i> Configuración del Sistema
     </h2>
 
     @if (session()->has('success'))
-        <div class="bg-emerald-50 text-emerald-700 p-4 rounded-xl flex items-center mb-8 border border-emerald-200 animate__animated animate__fadeIn">
+        <div class="bg-emerald-50 text-emerald-700 p-4 rounded-xl flex items-center mb-8 border border-emerald-200 animate__animated animate__fadeIn italic">
             <i class="bi bi-check-circle-fill text-xl mr-3"></i>
-            <span class="flex-1 font-medium">{{ session('success') }}</span>
-            <button type="button" class="text-emerald-500 hover:text-emerald-700 focus:outline-none" wire:click="$set('success', null)">
-                <i class="bi bi-x-lg"></i>
-            </button>
+            <span class="flex-1 font-black uppercase tracking-wider text-xs">{{ session('success') }}</span>
         </div>
     @endif
 
     @if (session()->has('error'))
-        <div class="bg-rose-50 text-rose-700 p-4 rounded-xl flex items-center mb-8 border border-rose-200 animate__animated animate__fadeIn">
+        <div class="bg-rose-50 text-rose-700 p-4 rounded-xl flex items-center mb-8 border border-rose-200 animate__animated animate__fadeIn italic">
             <i class="bi bi-exclamation-triangle-fill text-xl mr-3"></i>
-            <span class="flex-1 font-medium">{{ session('error') }}</span>
-            <button type="button" class="text-rose-500 hover:text-rose-700 focus:outline-none" wire:click="$set('error', null)">
-                <i class="bi bi-x-lg"></i>
-            </button>
+            <span class="flex-1 font-black uppercase tracking-wider text-xs">{{ session('error') }}</span>
         </div>
     @endif
 
     <div class="bg-white rounded-[2.5rem] shadow-xl border border-slate-200 overflow-hidden shadow-sm animate__animated animate__fadeInUp">
         <div class="bg-indigo-600 px-8 py-5 flex items-center shadow-lg">
-            <h5 class="text-white font-bold text-lg flex items-center italic tracking-wide leading-none">
+            <h5 class="text-white font-black text-lg flex items-center italic tracking-wide leading-none uppercase">
                 <i class="bi bi-toggles mr-3"></i> Gestión de Módulos (Sidebar)
             </h5>
         </div>
@@ -39,23 +33,23 @@
                             <th class="px-8 py-5 w-20">ID</th>
                             <th class="px-8 py-5">Módulo Funcional</th>
                             <th class="px-8 py-5">Ruta de Sistema (Clave)</th>
-                            <th class="px-8 py-5">Estado</th>
+                            <th class="px-8 py-5">Estado Actual</th>
                             <th class="px-8 py-5 text-center">Visibilidad</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-slate-100 italic">
+                    <tbody class="divide-y divide-slate-100 italic font-medium">
                         @foreach($modulos as $modulo)
                             <tr class="hover:bg-slate-50/50 transition-colors group">
                                 <td class="px-8 py-5 text-sm font-mono text-slate-400">#{{ $modulo->modulo_id }}</td>
                                 <td class="px-8 py-5">
-                                    <div class="font-bold text-slate-800 text-lg group-hover:text-indigo-600 transition-colors leading-none italic">{{ $modulo->modulo_nombre }}</div>
+                                    <div class="font-black text-slate-800 text-lg group-hover:text-indigo-600 transition-colors leading-none italic uppercase tracking-tighter">{{ $modulo->modulo_nombre }}</div>
                                 </td>
                                 <td class="px-8 py-5">
                                     <span class="px-3 py-1 bg-slate-100 text-slate-500 text-[10px] font-mono font-bold rounded-lg border border-slate-200 uppercase tracking-tighter">
                                         {{ $modulo->modulo_clave }}
                                     </span>
                                 </td>
-                                <td class="px-8 py-5">
+                                <td class="px-8 py-5 lowercase">
                                     @if($modulo->modulo_activo)
                                         <span class="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-black bg-emerald-50 text-emerald-700 border border-emerald-100 shadow-sm uppercase italic">Activo</span>
                                     @else
