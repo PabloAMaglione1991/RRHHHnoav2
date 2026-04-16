@@ -8,6 +8,8 @@ use App\Models\Modulo;
 class Configuracion extends Component
 {
     public $modulos;
+    public $success; // Soporte para $set en el Blade
+    public $error;   // Soporte para $set en el Blade
 
     public function mount()
     {
