@@ -1,7 +1,7 @@
 <div>
     @if($isAdmin)
         <!-- Admin Actions Card -->
-        <div class="card card-premium mb-4 border-warning">
+        <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden mb-4 border-warning">
             <div class="card-header-premium bg-warning text-dark">
                 <i class="bi bi-shield-lock-fill me-2"></i> Acciones de Administrador
             </div>

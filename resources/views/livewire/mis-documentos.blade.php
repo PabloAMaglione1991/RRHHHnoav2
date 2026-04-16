@@ -4,7 +4,7 @@
     <div class="row">
         <!-- Formulario de Subida -->
         <div class="col-md-4">
-            <div class="card card-premium">
+            <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden">
                 <div class="card-header-premium">
                     <h5><i class="bi bi-cloud-upload"></i> Subir Documento</h5>
                 </div>
@@ -74,7 +74,7 @@
 
         <!-- Listado de Documentos -->
         <div class="col-md-8">
-            <div class="card card-premium">
+            <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden">
                 <div class="card-header-premium">
                     <h5><i class="bi bi-files"></i> Documentos Guardados</h5>
                 </div>

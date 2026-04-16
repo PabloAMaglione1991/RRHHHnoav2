@@ -42,7 +42,7 @@
                     };
                 @endphp
                 <div class="col-md-4 mb-3">
-                    <div class="card card-premium h-100 border-0 shadow-sm animate__animated animate__fadeInUp" style="border-top: 4px solid {{ $config['border'] }} !important; animation-delay: {{ $loop->index * 0.1 }}s">
+                    <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden h-100 border-0 shadow-sm animate__animated animate__fadeInUp" style="border-top: 4px solid {{ $config['border'] }} !important; animation-delay: {{ $loop->index * 0.1 }}s">
                         <div class="card-body d-flex flex-column">
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <span class="badge rounded-pill px-3 py-2 d-flex align-items-center" style="background: {{ $config['bg'] }}; color: {{ $config['text'] }}; font-weight: 600; font-size: 0.75rem;">

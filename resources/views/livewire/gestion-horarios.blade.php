@@ -4,7 +4,7 @@
     <div class="row">
         <!-- Lista de Horarios -->
         <div class="col-md-5">
-            <div class="card card-premium h-100">
+            <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden h-100">
                 <div class="card-header-premium d-flex justify-content-between align-items-center">
                     <h5><i class="bi bi-list-task"></i> Horarios Definidos</h5>
                     <button wire:click="resetInput" class="btn btn-sm btn-primary shadow-sm">
@@ -34,7 +34,7 @@
 
         <!-- Formulario -->
         <div class="col-md-7">
-            <div class="card card-premium">
+            <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden">
                 <div class="card-header-premium bg-white">
                     <h5>
                         @if($horario_id)

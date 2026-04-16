@@ -19,7 +19,7 @@ class DashboardCharts extends Component
 
     public function loadData(AnalyticsService $service)
     {
-        $tendencia = $service->getTendenciaAsistencia(7);
+        $tendencia = $service->getTendenciaAsistencia();
         $this->tendenciaLabels = $tendencia['labels'];
         $this->tendenciaData = $tendencia['data'];
 

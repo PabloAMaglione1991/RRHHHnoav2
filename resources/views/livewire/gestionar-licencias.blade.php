@@ -8,7 +8,7 @@
         </div>
     @endif
 
-    <div class="card card-premium">
+    <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden">
         <div class="card-header-premium">
             <h5><i class="bi bi-hourglass-split"></i> Solicitudes Pendientes</h5>
         </div>

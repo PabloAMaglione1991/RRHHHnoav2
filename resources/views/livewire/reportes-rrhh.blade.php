@@ -1,7 +1,7 @@
 <div>
     <h2 class="mb-4 text-primary fw-bold">Reportes RRHH</h2>
 
-    <div class="card card-premium shadow-sm border-0">
+    <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden shadow-sm border-0">
         <div class="card-header bg-white py-3">
             <h5 class="mb-0"><i class="bi bi-funnel"></i> Filtros</h5>
         </div>
@@ -55,7 +55,7 @@
         </div>
     </div>
 
-    <div class="card card-premium shadow-sm border-0 mt-4">
+    <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden shadow-sm border-0 mt-4">
         <div class="card-header bg-white py-3">
             <h5 class="mb-0"><i class="bi bi-bar-chart"></i> Resultados</h5>
         </div>

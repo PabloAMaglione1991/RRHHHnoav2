@@ -7,7 +7,7 @@
 ## 1. Panel de Control (Dashboard)
 Al ingresar, verás tu pantalla principal. Está diseñada con una **Grilla Bento** que te permite acceder a los servicios más importantes de un solo clic.
 
-![Tablero Principal Premium](public/manual/panel_de_control_espanol_1776260374663.png)
+![Tablero Principal Premium](manual_assets/dashboard.png)
 
 ### Elementos clave:
 - **Barra Lateral (Sidebar)**: Un menú moderno con efecto de vidrio que te permite navegar por todo el sitio.
@@ -19,7 +19,7 @@ Al ingresar, verás tu pantalla principal. Está diseñada con una **Grilla Bent
 ## 2. Gestión de Licencias 📝
 Solicitar un permiso o vacaciones nunca fue tan fácil. 
 
-![Interfaz de Solicitud de Licencia](public/manual/solicitud_licencia_espanol_1776260397393.png)
+![Interfaz de Solicitud de Licencia](manual_assets/licencias.png)
 
 ### Cómo solicitar una licencia:
 1. Hacé clic en **"Solicitar Licencia"** desde el Dashboard.
@@ -33,7 +33,7 @@ Solicitar un permiso o vacaciones nunca fue tan fácil.
 ## 3. Control de Asistencia (Mis Fichadas) ⏰
 Podés consultar tus ingresos y egresos registrados en el reloj en tiempo real.
 
-![Tabla de Asistencia y Fichadas](public/manual/mis_fichadas_espanol_1776260418484.png)
+![Tabla de Asistencia y Fichadas](manual_assets/asistencia.png)
 
 ### Interpretando tus fichadas:
 - **Estados**: El sistema te mostrará con "badges" de colores si tu fichada fue una Entrada (verde) o una Salida (azul).

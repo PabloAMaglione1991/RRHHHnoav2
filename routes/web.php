@@ -17,8 +17,8 @@ Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
 
 Route::middleware(['auth'])->group(function () {
-    // === ACCESO COMÚN (Todos los Agentes) ===
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    // === ACCESO COMÚN (MOCK PARA DOCUMENTACIÓN) ===
+    Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
     Route::get('/mis-fichadas', App\Http\Livewire\MisFichadas::class)->name('mis.fichadas');
     Route::get('/mis-licencias', App\Http\Livewire\MisLicencias::class)->name('mis.licencias');
     Route::get('/mis-documentos', App\Http\Livewire\MisDocumentos::class)->name('mis.documentos');

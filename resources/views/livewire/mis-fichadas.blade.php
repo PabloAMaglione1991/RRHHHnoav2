@@ -8,7 +8,7 @@
         </div>
     @endif
 
-    <div class="card card-premium mb-4">
+    <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden mb-4">
         <div class="card-body">
             <div class="row align-items-center">
                 <div class="col-md-4">
@@ -39,7 +39,7 @@
     </div>
 
     <!-- Calendario -->
-    <div class="card card-premium">
+    <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden">
         <div class="card-body p-0">
             <div class="table-responsive">
                 <table class="table table-bordered mb-0 text-center" style="table-layout: fixed;">

@@ -2,7 +2,7 @@
     <h2 class="mb-4">Gestión de Usuarios</h2>
 
     {{-- Filtros --}}
-    <div class="card card-premium mb-4">
+    <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden mb-4">
         <div class="card-body">
             <h5 class="card-title mb-3"><i class="bi bi-funnel"></i> Filtros de Búsqueda</h5>
             <div class="row g-3">
@@ -36,7 +36,7 @@
     </div>
 
     {{-- Tabla --}}
-    <div class="card card-premium">
+    <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden">
         <div class="card-body p-0">
             <div class="table-responsive">
                 <table class="table table-premium mb-0">

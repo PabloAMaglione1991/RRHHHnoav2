@@ -15,7 +15,7 @@
         </div>
     @endif
 
-    <div class="card card-premium shadow-sm">
+    <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden shadow-sm">
         <div class="card-header bg-primary text-white">
             <h5 class="mb-0 py-1"><i class="bi bi-toggles"></i> Gestión de Módulos (Sidebar)</h5>
         </div>

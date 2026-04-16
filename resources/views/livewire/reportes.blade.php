@@ -1,7 +1,7 @@
 div>
     <h2 class="mb-4">Informes y Reportes</h2>
 
-    <div class="card card-premium mb-4 shadow-sm">
+    <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden mb-4 shadow-sm">
         <div class="card-body">
             <h5 class="card-title mb-3"><i class="bi bi-funnel"></i> Filtros de Búsqueda</h5>
             <div class="row g-3">
@@ -49,7 +49,7 @@ div>
         </div>
     </div>
 
-    <div class="card card-premium shadow-sm">
+    <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden shadow-sm">
         <div class="card-body p-0">
             <div class="table-responsive">
                 @if($resultados->count() > 0)

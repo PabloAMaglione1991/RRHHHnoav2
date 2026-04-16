@@ -19,7 +19,7 @@
     @endif
 
 
-    <div class="card card-premium shadow-sm mb-4">
+    <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden shadow-sm mb-4">
         <div class="card-body">
             <div class="row mb-3">
                 <div class="col-md-4">

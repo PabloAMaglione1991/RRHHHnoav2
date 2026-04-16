@@ -9,7 +9,7 @@
             </div>
         </div>
 
-        <div class="card card-premium shadow-sm border-0">
+        <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden shadow-sm border-0">
             <div class="card-header bg-white py-3">
                 <form method="GET" class="row g-3 align-items-end">
                     <div class="col-auto">

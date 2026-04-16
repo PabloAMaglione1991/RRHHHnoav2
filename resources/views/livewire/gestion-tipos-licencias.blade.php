@@ -18,7 +18,7 @@
         </div>
     @endif
 
-    <div class="card card-premium shadow-sm border-0">
+    <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden shadow-sm border-0">
         <div class="card-header bg-white py-3">
             <div class="row g-3">
                 <div class="col-md-4">

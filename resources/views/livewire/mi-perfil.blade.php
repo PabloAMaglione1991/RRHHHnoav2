@@ -4,7 +4,7 @@
     <div class="row">
         <!-- Tarjeta de Información Personal -->
         <div class="col-md-4 mb-4">
-            <div class="card card-premium h-100">
+            <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden h-100">
                 <div class="card-body text-center">
                     <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3"
                         style="width: 100px; height: 100px; font-size: 2.5rem;">
@@ -28,7 +28,7 @@
 
         <!-- Tarjeta de Seguridad -->
         <div class="col-md-8 mb-4">
-            <div class="card card-premium">
+            <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden">
                 <div class="card-header-premium">
                     <i class="bi bi-shield-lock me-2"></i> Seguridad de la Cuenta
                 </div>

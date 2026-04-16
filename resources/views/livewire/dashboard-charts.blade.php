@@ -5,7 +5,7 @@
     
     <!-- Gráfico de Tendencia de Asistencia -->
     <div class="col-md-8 mb-4">
-        <div class="card card-premium overflow-hidden">
+        <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden overflow-hidden">
             <div class="card-header bg-white border-0 pt-4 px-4">
                 <h5 class="fw-bold mb-0">Asistencia de la Semana</h5>
                 <p class="text-muted small">Cantidad de personas únicas fichando por día</p>
@@ -18,7 +18,7 @@
 
     <!-- Gráfico de Distribución de Licencias -->
     <div class="col-md-4 mb-4">
-        <div class="card card-premium overflow-hidden h-100">
+        <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden overflow-hidden h-100">
             <div class="card-header bg-white border-0 pt-4 px-4 text-center">
                 <h5 class="fw-bold mb-0">Licencias del Mes</h5>
             </div>

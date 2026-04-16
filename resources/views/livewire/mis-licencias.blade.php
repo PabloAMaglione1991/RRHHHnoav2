@@ -3,7 +3,7 @@
 
     <div class="row">
         <div class="col-md-4">
-            <div class="card card-premium">
+            <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden">
                 <div class="card-header-premium">
                     <h5><i class="bi bi-plus-circle"></i> Nueva Solicitud</h5>
                 </div>
@@ -62,7 +62,7 @@
         </div>
 
         <div class="col-md-8">
-            <div class="card card-premium">
+            <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden">
                 <div class="card-header-premium">
                     <h5><i class="bi bi-clock-history"></i> Historial de Solicitudes</h5>
                 </div>
