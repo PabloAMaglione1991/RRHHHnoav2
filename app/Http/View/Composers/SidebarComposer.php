@@ -23,7 +23,10 @@ class SidebarComposer
      */
     public function compose(View $view)
     {
+        \Log::info("DEBUG SIDEBAR: Ejecutando compose para la vista: " . $view->getName());
+
         if (!Auth::check()) {
+            \Log::warning("DEBUG SIDEBAR: Auth::check() devolvió false.");
             return;
         }
 
