@@ -40,7 +40,7 @@
                     <tbody class="divide-y divide-slate-100 italic font-medium">
                         @foreach($modulos as $modulo)
                             <tr class="hover:bg-slate-50/50 transition-colors group">
-                                <td class="px-8 py-5 text-sm font-mono text-slate-400">#{{ $modulo->modulo_id }}</td>
+                                <td class="px-8 py-5 text-sm font-mono text-slate-400">#{{ $modulo->id }}</td>
                                 <td class="px-8 py-5">
                                     <div class="font-black text-slate-800 text-lg group-hover:text-indigo-600 transition-colors leading-none italic uppercase tracking-tighter">{{ $modulo->modulo_nombre }}</div>
                                 </td>
@@ -62,7 +62,7 @@
                                             $disabled = ($modulo->modulo_clave == 'dashboard' || $modulo->modulo_clave == 'configuracion');
                                         @endphp
                                         <button 
-                                            wire:click="toggleModulo({{ $modulo->modulo_id }})" 
+                                            wire:click="toggleModulo({{ $modulo->id }})" 
                                             class="w-12 h-6 rounded-full p-1 transition-all duration-300 {{ $modulo->modulo_activo ? 'bg-indigo-600' : 'bg-slate-200' }} {{ $disabled ? 'opacity-30 cursor-not-allowed' : 'cursor-pointer' }}"
                                             @if($disabled) disabled @endif
                                         >

@@ -18,8 +18,8 @@ class Configuracion extends Component
 
     public function refreshModulos()
     {
-        // Ordenamos por modulo_id
-        $this->modulos = Modulo::orderBy('modulo_id', 'asc')->get();
+        // Ordenamos por modulo_orden
+        $this->modulos = Modulo::orderBy('modulo_orden', 'asc')->get();
     }
 
     public function toggleModulo($id)
