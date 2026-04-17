@@ -51,7 +51,7 @@ class Agente extends Authenticatable
 
     public function roles()
     {
-        return $this->belongsToMany(Rol::class, 't_agente_roles', 'age_id', 'rol_id');
+        return $this->belongsToMany(Rol::class, 't_agente_roles', 'agente_id', 'rol_id');
     }
 
 
