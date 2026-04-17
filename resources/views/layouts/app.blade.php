@@ -101,7 +101,7 @@
 
                 <div class="flex items-center gap-4">
                     @auth
-                        <div class="hidden md:flex flex-col items-end mr-2">
+                        <div class="flex flex-col items-end mr-2 text-right">
                             <span class="text-xs font-black uppercase tracking-widest text-slate-400 leading-none mb-1">Usuario Activo</span>
                             <span class="text-sm font-bold text-slate-700 leading-none">{{ Auth::user()->nombre_completo }}</span>
                         </div>
