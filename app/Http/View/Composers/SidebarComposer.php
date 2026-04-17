@@ -40,8 +40,8 @@ class SidebarComposer
 
         // Consultamos la tabla real t_modulos de Santa Fe
         $modulos = DB::table('t_modulos')
-            ->where('activo', 1)
-            ->orderBy('nombre', 'asc')
+            ->where('modulo_activo', 1)
+            ->orderBy('modulo_nombre', 'asc')
             ->get();
 
 
@@ -51,7 +51,7 @@ class SidebarComposer
         foreach ($modulos as $mod) {
             // NORMALIZACIÓN ROBUSTA:
             // Usamos modulo_clave, pero si está vacío usamos el nombre como fallback
-            $moduloClaveBD = $mod->route ?: $mod->nombre;
+            $moduloClaveBD = $mod->modulo_clave ?: $mod->modulo_nombre;
             
             if (!$moduloClaveBD) continue; // Si todo está vacío, ignoramos
 
@@ -131,7 +131,7 @@ class SidebarComposer
                 \Log::info("DEBUG SIDEBAR: DB_Key: '{$moduloClaveBD}' | Normalized: '{$routeMapped}' | Final_URL: '{$finalUrl}'");
 
                 $sidebarItems[] = [
-                    'nombre' => $mod->nombre,
+                    'nombre' => $mod->modulo_nombre,
                     'route'  => $routeMapped,
                     'url'    => $finalUrl,
                     'icon'   => $icon,
