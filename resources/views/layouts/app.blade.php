@@ -28,33 +28,55 @@
     <div class="flex min-h-screen bg-slate-50 transition-colors duration-300">
         
         <!-- Sidebar -->
-        <aside :class="sidebarOpen ? 'translate-x-0 w-64' : '-translate-x-full w-0 lg:w-20 lg:translate-x-0'" class="fixed inset-y-0 left-0 z-50 flex flex-col bg-slate-900 text-white transition-all duration-300 ease-in-out shadow-xl">
+        <aside :class="sidebarOpen ? 'translate-x-0 w-[280px]' : '-translate-x-full w-0 lg:w-[100px] lg:translate-x-0'" class="fixed inset-y-0 left-0 z-50 flex flex-col bg-[#1e1e24] text-white transition-all duration-300 ease-in-out shadow-[8px_0_30px_rgba(0,0,0,0.1)] border-r border-[#2a2a32]">
             <!-- Sidebar Header -->
-            <div class="flex items-center justify-center h-20 border-b border-slate-800">
-                <a href="{{ route('dashboard') }}" class="group flex items-center justify-center p-2 mt-4 mb-4 mx-4 w-full bg-white/5 backdrop-blur-md rounded-xl border border-white/10 hover:bg-white/10 hover:border-indigo-500 hover:-translate-y-0.5 transition-all duration-300">
-                    <span x-show="sidebarOpen" class="font-bold text-sm tracking-wide">Portal Hospital</span>
-                    <span x-show="!sidebarOpen" class="hidden lg:block font-bold text-xl">PH</span>
+            <div class="flex items-center justify-center h-28 px-6">
+                <a href="{{ route('dashboard') }}" class="group flex items-center justify-center w-full transition-all duration-300 no-underline">
+                    <span x-show="sidebarOpen" class="font-extrabold text-[1.35rem] tracking-tight flex items-center justify-center gap-3">
+                        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-emerald-400 to-indigo-500 shadow-lg shadow-indigo-500/20 flex items-center justify-center">
+                            <i class="bi bi-hospital text-white text-xl"></i>
+                        </div>
+                        <span class="text-white hover:text-indigo-400 transition-colors">Portal Hospital</span>
+                    </span>
+                    <span x-show="!sidebarOpen" class="hidden lg:flex font-extrabold text-2xl items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-tr from-emerald-400 to-indigo-500 shadow-lg shadow-indigo-500/20 text-white">
+                        P
+                    </span>
                 </a>
             </div>
 
             <!-- Sidebar Links -->
-            <nav class="flex-1 overflow-y-auto py-4 space-y-1">
-                <a href="{{ route('dashboard') }}" class="flex items-center px-4 py-3 mx-2 rounded-lg transition-colors {{ request()->routeIs('dashboard') ? 'bg-indigo-600/[0.15] text-indigo-400 font-semibold border-l-4 border-indigo-500' : 'text-slate-400 hover:bg-white/5 hover:text-white' }}">
-                    <i class="bi bi-house-door text-xl flex-shrink-0 w-6 text-center"></i>
-                    <span x-show="sidebarOpen" class="ml-3">Inicio</span>
+            <nav class="flex-1 overflow-y-auto px-4 py-6 space-y-2 relative custom-scrollbar">
+                <a href="{{ route('dashboard') }}" class="flex items-center px-4 py-3.5 mx-2 rounded-[1rem] transition-all duration-300 no-underline group {{ request()->routeIs('dashboard') ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/30' : 'text-[#8c8c9a] hover:text-white hover:bg-white/5' }}">
+                    <i class="bi bi-grid text-[1.4rem] flex-shrink-0 w-8 text-center transition-transform group-hover:scale-110 {{ request()->routeIs('dashboard') ? 'text-white' : '' }}"></i>
+                    <span x-show="sidebarOpen" class="ml-3 font-semibold text-[0.95rem] tracking-wide">Dashboard</span>
                 </a>
 
                 @isset($sidebarItems)
                     @foreach($sidebarItems as $item)
                         @if($item['route'] !== 'dashboard')
-                            <a href="{{ $item['url'] }}" class="flex items-center px-4 py-3 mx-2 rounded-lg transition-colors {{ $item['active'] ? 'bg-indigo-600/[0.15] text-indigo-400 font-semibold border-l-4 border-indigo-500' : 'text-slate-400 hover:bg-white/5 hover:text-white' }}">
-                                <i class="{{ $item['icon'] }} text-xl flex-shrink-0 w-6 text-center"></i>
-                                <span x-show="sidebarOpen" class="ml-3 truncate">{{ $item['nombre'] }}</span>
+                            <a href="{{ $item['url'] }}" class="flex items-center px-4 py-3.5 mx-2 rounded-[1rem] transition-all duration-300 no-underline group {{ $item['active'] ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/30' : 'text-[#8c8c9a] hover:text-white hover:bg-white/5' }}">
+                                <i class="{{ $item['icon'] }} text-[1.4rem] flex-shrink-0 w-8 text-center transition-transform group-hover:scale-110 {{ $item['active'] ? 'text-white' : '' }}"></i>
+                                <span x-show="sidebarOpen" class="ml-3 font-semibold text-[0.95rem] tracking-wide truncate">{{ $item['nombre'] }}</span>
                             </a>
                         @endif
                     @endforeach
                 @endisset
             </nav>
+            
+            <!-- User Section Minimal -->
+            @auth
+            <div class="p-6 border-t border-[#2a2a32] mx-4 mb-4 mt-auto">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-slate-700 flex-shrink-0 border-2 border-indigo-500 overflow-hidden">
+                        <img src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}&background=4F46E5&color=fff" alt="" class="w-full h-full object-cover">
+                    </div>
+                    <div class="flex-col overflow-hidden" x-show="sidebarOpen">
+                        <div class="text-sm font-bold text-white truncate">{{ Auth::user()->name }}</div>
+                        <div class="text-[0.7rem] text-[#8c8c9a] font-medium tracking-wide uppercase">Agente Activo</div>
+                    </div>
+                </div>
+            </div>
+            @endauth
         </aside>
 
         <!-- Main Content -->
