@@ -8,7 +8,7 @@
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         @foreach($novedades as $novedad)
             @php
-                $tipo = $novedad->nov_tipo ?? 'info';
+                $tipo = $novedad->tipo ?? 'info';
                 $config = match ($tipo) {
                     'danger' => [
                         'bg' => 'bg-rose-50',
@@ -55,13 +55,13 @@
                         </span>
                     </div>
                     
-                    <h5 class="text-lg font-bold text-slate-800 mb-3 group-hover:text-indigo-600 transition-colors">{{ $novedad->nov_titulo }}</h5>
+                    <h5 class="text-lg font-bold text-slate-800 mb-3 group-hover:text-indigo-600 transition-colors">{{ $novedad->titulo }}</h5>
                     
                     <p class="text-slate-600 text-sm leading-relaxed mb-6 flex-grow">
-                        {{ Str::limit($novedad->nov_contenido_largo, 120) }}
+                        {{ Str::limit($novedad->contenido, 120) }}
                     </p>
                     
-                    <button wire:click="selectNovedad({{ $novedad->nov_id }})" class="w-full py-2.5 rounded-xl font-bold flex items-center justify-center transition-all cursor-pointer {{ $config['btn'] }}">
+                    <button wire:click="selectNovedad({{ $novedad->id }})" class="w-full py-2.5 rounded-xl font-bold flex items-center justify-center transition-all cursor-pointer {{ $config['btn'] }}">
                         Leer contenido <i class="bi bi-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
                     </button>
                 </div>
@@ -76,7 +76,7 @@
                 @if($selectedNovedad)
                     <div class="p-8">
                         <div class="flex justify-between items-start mb-6">
-                            <h4 class="text-2xl font-bold text-slate-800">{{ $selectedNovedad->nov_titulo }}</h4>
+                            <h4 class="text-2xl font-bold text-slate-800">{{ $selectedNovedad->titulo }}</h4>
                             <button type="button" class="p-2 hover:bg-slate-100 rounded-full transition-colors" data-bs-dismiss="modal" aria-label="Close">
                                 <i class="bi bi-x-lg text-slate-400 text-xl"></i>
                             </button>
@@ -88,7 +88,7 @@
                         </div>
                         
                         <div class="text-slate-600 text-lg leading-relaxed whitespace-pre-wrap max-h-[60vh] overflow-y-auto pr-4 custom-scrollbar">
-                            {{ $selectedNovedad->nov_contenido_largo }}
+                            {{ $selectedNovedad->contenido }}
                         </div>
                         
                         <div class="mt-10 flex justify-end">

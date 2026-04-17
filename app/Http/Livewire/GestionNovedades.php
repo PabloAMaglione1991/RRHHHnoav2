@@ -49,7 +49,7 @@ class GestionNovedades extends Component
 
     public function render()
     {
-        $novedades = Novedad::where('nov_titulo', 'like', '%' . $this->search . '%')
+        $novedades = Novedad::where('titulo', 'like', '%' . $this->search . '%')
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate(10);
 
@@ -71,9 +71,9 @@ class GestionNovedades extends Component
         $novedad = Novedad::findOrFail($id);
 
         $this->novedadId = $id;
-        $this->titulo = $novedad->nov_titulo;
-        $this->contenido = $novedad->nov_contenido_largo;
-        $this->tipo = $novedad->nov_tipo ?? 'info';
+        $this->titulo = $novedad->titulo;
+        $this->contenido = $novedad->contenido;
+        $this->tipo = $novedad->tipo ?? 'info';
         $this->fijada = (bool) $novedad->nov_fijada;
         $this->fecha_publicacion = Carbon::parse($novedad->nov_fecha_publicacion)->format('Y-m-d\TH:i');
 
@@ -85,11 +85,10 @@ class GestionNovedades extends Component
     {
         $this->validate();
 
-        Novedad::updateOrCreate(['nov_id' => $this->novedadId], [
-            'nov_titulo' => $this->titulo,
-            'nov_contenido_largo' => $this->contenido,
-            'nov_contenido_corto' => substr($this->contenido, 0, 100) . '...',
-            'nov_tipo' => $this->tipo,
+        Novedad::updateOrCreate(['id' => $this->novedadId], [
+            'titulo' => $this->titulo,
+            'contenido' => $this->contenido,
+            'tipo' => $this->tipo,
             'nov_fijada' => $this->fijada ? 1 : 0,
             'nov_fecha_publicacion' => $this->fecha_publicacion,
             'nov_activo' => 1

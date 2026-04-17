@@ -40,19 +40,19 @@
                         <tr class="hover:bg-slate-50/50 transition-colors group relative">
                             <td class="px-8 py-5">
                                 <div class="flex flex-col">
-                                    <div class="font-black text-slate-800 text-lg tracking-tight leading-none mb-1 italic">{{ $novedad->nov_titulo }}</div>
+                                    <div class="font-black text-slate-800 text-lg tracking-tight leading-none mb-1 italic">{{ $novedad->titulo }}</div>
                                     <div class="flex items-center text-[10px] text-slate-400 font-bold uppercase tracking-widest mb-2">
                                         <i class="bi bi-calendar-event mr-2"></i>
                                         Publicado el {{ \Carbon\Carbon::parse($novedad->nov_fecha_publicacion)->format('d/m/Y') }}
                                     </div>
                                     <div class="text-xs text-slate-500 max-w-[400px] truncate italic font-medium">
-                                        {{ \Illuminate\Support\Str::limit($novedad->nov_contenido_largo, 80) }}
+                                        {{ \Illuminate\Support\Str::limit($novedad->contenido, 80) }}
                                     </div>
                                 </div>
                             </td>
                             <td class="px-8 py-5">
                                 @php
-                                    $tipo = $novedad->nov_tipo ?? 'info';
+                                    $tipo = $novedad->tipo ?? 'info';
                                     $config = ['bg' => 'bg-slate-50', 'text' => 'text-slate-700', 'border' => 'border-slate-100', 'label' => 'General'];
                                     
                                     if($tipo == 'info') $config = ['bg' => 'bg-indigo-50', 'text' => 'text-indigo-700', 'border' => 'border-indigo-100', 'label' => 'Informativa'];
@@ -65,18 +65,18 @@
                             </td>
                             <td class="px-8 py-5 text-center">
                                 <div class="flex justify-center">
-                                    <button wire:click="toggleFijada({{ $novedad->nov_id }})" 
+                                    <button wire:click="toggleFijada({{ $novedad->id }})" 
                                         class="w-12 h-6 rounded-full p-1 transition-all duration-300 {{ $novedad->nov_fijada ? 'bg-indigo-600' : 'bg-slate-200' }}">
                                         <div class="bg-white w-4 h-4 rounded-full shadow-sm transition-transform duration-300 {{ $novedad->nov_fijada ? 'translate-x-6' : 'translate-x-0' }}"></div>
                                     </button>
                                 </div>
                             </td>
                             <td class="px-8 py-5 text-right space-x-2 whitespace-nowrap">
-                                <button wire:click="edit({{ $novedad->nov_id }})" class="p-2.5 text-indigo-600 hover:bg-indigo-50 rounded-xl transition-all border border-transparent hover:border-indigo-100 group/btn shadow-sm" title="Editar">
+                                <button wire:click="edit({{ $novedad->id }})" class="p-2.5 text-indigo-600 hover:bg-indigo-50 rounded-xl transition-all border border-transparent hover:border-indigo-100 group/btn shadow-sm" title="Editar">
                                     <i class="bi bi-pencil-square group-hover/btn:scale-125 transition-transform inline-block"></i>
                                 </button>
                                 <button onclick="confirm('¿Estás seguro de eliminar esta noticia?') || event.stopImmediatePropagation()"
-                                        wire:click="delete({{ $novedad->nov_id }})"
+                                        wire:click="delete({{ $novedad->id }})"
                                         class="p-2.5 text-rose-600 hover:bg-rose-50 rounded-xl transition-all border border-transparent hover:border-rose-100 group/btn shadow-sm" title="Eliminar">
                                     <i class="bi bi-trash group-hover/btn:scale-125 transition-transform inline-block"></i>
                                 </button>

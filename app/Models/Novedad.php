@@ -14,18 +14,17 @@ class Novedad extends Model
 
 
     protected $table = 't_novedades';
-    protected $primaryKey = 'nov_id';
-    public $timestamps = false;
+    protected $primaryKey = 'id';
+    public $timestamps = true;
 
 
     protected $fillable = [
-        'nov_titulo',
-        'nov_contenido_largo',
-        'nov_contenido_corto',
-        'nov_tipo', // Requiere agregar columna en DB
-        'nov_fecha_publicacion',
+        'titulo',
+        'contenido',
+        'tipo',
         'nov_fijada',
         'nov_activo',
+        'nov_fecha_publicacion',
         'nov_creado_por_age_id'
     ];
 }
