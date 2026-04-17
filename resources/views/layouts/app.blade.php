@@ -28,7 +28,10 @@
     <div class="flex min-h-screen bg-slate-50 transition-colors duration-300">
         
         <!-- Sidebar -->
-        <aside :class="sidebarOpen ? 'translate-x-0 w-[280px]' : '-translate-x-full w-0 lg:w-[100px] lg:translate-x-0'" class="fixed inset-y-0 left-0 z-50 flex flex-col bg-[#1e1e24] text-white transition-all duration-300 ease-in-out shadow-[8px_0_30px_rgba(0,0,0,0.1)] border-r border-[#2a2a32]">
+        <aside 
+            :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'" 
+            :style="sidebarOpen ? 'width: 280px;' : 'width: 100px;'"
+            class="fixed inset-y-0 left-0 z-50 flex flex-col bg-[#1e1e24] text-white transition-all duration-300 ease-in-out shadow-[8px_0_30px_rgba(0,0,0,0.1)] border-r border-[#2a2a32]">
             <!-- Sidebar Header -->
             <div class="flex items-center justify-center h-28 px-6">
                 <a href="{{ route('dashboard') }}" class="group flex items-center justify-center w-full transition-all duration-300 no-underline">
@@ -80,7 +83,9 @@
         </aside>
 
         <!-- Main Content -->
-        <main :class="sidebarOpen ? 'ml-[280px]' : 'ml-0 lg:ml-[100px]'" class="flex-1 transition-all duration-300 ease-in-out min-h-screen border-l border-slate-200/50">
+        <main 
+            :style="sidebarOpen ? 'margin-left: 280px;' : 'margin-left: 100px;'"
+            class="flex-1 transition-all duration-300 ease-in-out min-h-screen border-l border-slate-200/50">
             <!-- Navbar -->
             <header class="sticky top-0 z-40 flex items-center justify-between h-20 px-6 bg-white/80 backdrop-blur-md border-b border-slate-200">
                 <div class="flex items-center gap-4">
