@@ -18,8 +18,8 @@ class Configuracion extends Component
 
     public function refreshModulos()
     {
-        // Ordenamos por modulo_id ya que no hay columna 'orden'
-        $this->modulos = Modulo::orderBy('modulo_id', 'asc')->get();
+        // Ordenamos por la columna 'orden' definida en el esquema
+        $this->modulos = Modulo::orderBy('orden', 'asc')->get();
     }
 
     public function toggleModulo($id)
@@ -27,17 +27,17 @@ class Configuracion extends Component
         $modulo = Modulo::find($id);
 
         if ($modulo) {
-            // Protección para no apagar el sistema
-            if ($modulo->modulo_clave === 'dashboard' || $modulo->modulo_clave === 'configuracion') {
+            // Protección para no apagar el sistema (usando columna 'route')
+            if ($modulo->route === 'dashboard' || $modulo->route === 'configuracion') {
                 session()->flash('error', 'No se puede desactivar un módulo crítico.');
                 return;
             }
 
-            $modulo->modulo_activo = !$modulo->modulo_activo;
+            $modulo->activo = !$modulo->activo;
             $modulo->save();
 
             $this->refreshModulos();
-            session()->flash('success', 'Estado del módulo "' . $modulo->modulo_nombre . '" actualizado.');
+            session()->flash('success', 'Estado del módulo "' . $modulo->nombre . '" actualizado.');
         }
     }
 

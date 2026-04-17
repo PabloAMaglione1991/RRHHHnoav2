@@ -35,10 +35,10 @@ class DashboardController extends Controller
 
         $horasFormateadas = $this->fichadaService->convertirMinutosAHoras($horasTrabajadas);
 
-        // CORRECCIÓN: Usamos los nombres reales de las columnas (modulo_activo y modulo_nombre)
+        // CORRECCIÓN: Usamos los nombres reales de las columnas (activo y nombre)
         $modulosActivos = DB::table('t_modulos')
-            ->where('modulo_activo', 1)
-            ->pluck('modulo_nombre')
+            ->where('activo', 1)
+            ->pluck('nombre')
             ->map(function ($name) {
                 return mb_strtolower($name, 'UTF-8');
             })->toArray();

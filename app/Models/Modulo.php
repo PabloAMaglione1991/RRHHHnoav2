@@ -10,15 +10,16 @@ class Modulo extends Model
     use HasFactory;
 
     protected $table = 't_modulos';
-    protected $primaryKey = 'modulo_id';
+    protected $primaryKey = 'id';
 
     // ESTA ES LA LÍNEA QUE FALTA:
     public $timestamps = false;
 
     protected $fillable = [
-        'modulo_nombre',
-        'modulo_clave',
-        'modulo_descripcion',
-        'modulo_activo'
+        'nombre',
+        'route',
+        'icon',
+        'activo',
+        'orden'
     ];
 }
