@@ -101,7 +101,10 @@
 
                 <div class="flex items-center gap-4">
                     @auth
-                        <span class="font-semibold text-slate-700">{{ Auth::user()->name }}</span>
+                        <div class="hidden md:flex flex-col items-end mr-2">
+                            <span class="text-xs font-black uppercase tracking-widest text-slate-400 leading-none mb-1">Usuario Activo</span>
+                            <span class="text-sm font-bold text-slate-700 leading-none">{{ Auth::user()->nombre_completo }}</span>
+                        </div>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <button type="submit" class="px-4 py-2 text-sm font-semibold text-red-600 border border-red-200 rounded-full hover:bg-red-50 hover:border-red-300 transition-all focus:outline-none focus:ring-2 focus:ring-red-500">Salir</button>
