@@ -33,7 +33,7 @@
             :style="sidebarOpen ? 'width: 280px;' : 'width: 100px;'"
             class="fixed inset-y-0 left-0 z-50 flex flex-col bg-[#1e1e24] text-white transition-all duration-300 ease-in-out shadow-[8px_0_30px_rgba(0,0,0,0.1)] border-r border-[#2a2a32]">
             <!-- Sidebar Header -->
-            <div class="flex items-center justify-center h-28 px-6">
+            <div class="flex items-center justify-center transition-all duration-300" :class="sidebarOpen ? 'h-28 px-6' : 'h-28 px-2'">
                 <a href="{{ route('dashboard') }}" class="group flex items-center justify-center w-full transition-all duration-300 no-underline">
                     <span x-show="sidebarOpen" class="font-extrabold text-[1.35rem] tracking-tight flex items-center justify-center gap-3">
                         <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-emerald-400 to-indigo-500 shadow-lg shadow-indigo-500/20 flex items-center justify-center">
@@ -41,24 +41,28 @@
                         </div>
                         <span class="text-white hover:text-indigo-400 transition-colors">Portal Hospital</span>
                     </span>
-                    <span x-show="!sidebarOpen" class="hidden lg:flex font-extrabold text-2xl items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-tr from-emerald-400 to-indigo-500 shadow-lg shadow-indigo-500/20 text-white">
+                    <div x-show="!sidebarOpen" class="flex font-extrabold text-2xl items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-tr from-emerald-400 to-indigo-500 shadow-lg shadow-indigo-500/20 text-white">
                         P
-                    </span>
+                    </div>
                 </a>
             </div>
 
             <!-- Sidebar Links -->
-            <nav class="flex-1 overflow-y-auto px-4 py-6 space-y-2 relative custom-scrollbar">
-                <a href="{{ route('dashboard') }}" class="flex items-center px-4 py-3.5 mx-2 rounded-[1rem] transition-all duration-300 no-underline group {{ request()->routeIs('dashboard') ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/30' : 'text-[#8c8c9a] hover:text-white hover:bg-white/5' }}">
-                    <i class="bi bi-grid text-[1.4rem] flex-shrink-0 w-8 text-center transition-transform group-hover:scale-110 {{ request()->routeIs('dashboard') ? 'text-white' : '' }}"></i>
+            <nav class="flex-1 overflow-y-auto py-6 space-y-3 relative custom-scrollbar transition-all duration-300" :class="sidebarOpen ? 'px-4' : 'px-2'">
+                <a href="{{ route('dashboard') }}" 
+                    class="flex items-center rounded-[1rem] transition-all duration-300 no-underline group {{ request()->routeIs('dashboard') ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/30' : 'text-[#8c8c9a] hover:text-white hover:bg-white/5' }}"
+                    :class="sidebarOpen ? 'px-4 py-3.5 mx-2' : 'px-0 py-4 justify-center mx-1'">
+                    <i class="bi bi-grid text-[1.5rem] flex-shrink-0 text-center transition-transform group-hover:scale-110 {{ request()->routeIs('dashboard') ? 'text-white' : '' }}"></i>
                     <span x-show="sidebarOpen" class="ml-3 font-semibold text-[0.95rem] tracking-wide">Dashboard</span>
                 </a>
 
                 @isset($sidebarItems)
                     @foreach($sidebarItems as $item)
                         @if($item['route'] !== 'dashboard')
-                            <a href="{{ $item['url'] }}" class="flex items-center px-4 py-3.5 mx-2 rounded-[1rem] transition-all duration-300 no-underline group {{ $item['active'] ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/30' : 'text-[#8c8c9a] hover:text-white hover:bg-white/5' }}">
-                                <i class="{{ $item['icon'] }} text-[1.4rem] flex-shrink-0 w-8 text-center transition-transform group-hover:scale-110 {{ $item['active'] ? 'text-white' : '' }}"></i>
+                            <a href="{{ $item['url'] }}" 
+                                class="flex items-center rounded-[1rem] transition-all duration-300 no-underline group {{ $item['active'] ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/30' : 'text-[#8c8c9a] hover:text-white hover:bg-white/5' }}"
+                                :class="sidebarOpen ? 'px-4 py-3.5 mx-2' : 'px-0 py-4 justify-center mx-1'">
+                                <i class="{{ $item['icon'] }} text-[1.5rem] flex-shrink-0 text-center transition-transform group-hover:scale-110 {{ $item['active'] ? 'text-white' : '' }}"></i>
                                 <span x-show="sidebarOpen" class="ml-3 font-semibold text-[0.95rem] tracking-wide truncate">{{ $item['nombre'] }}</span>
                             </a>
                         @endif
@@ -68,12 +72,12 @@
             
             <!-- User Section Minimal -->
             @auth
-            <div class="p-6 border-t border-[#2a2a32] mx-4 mb-4 mt-auto">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-full bg-slate-700 flex-shrink-0 border-2 border-indigo-500 overflow-hidden">
+            <div class="border-t border-[#2a2a32] pt-6 mb-6 mt-auto transition-all duration-300" :class="sidebarOpen ? 'px-8' : 'px-0 flex justify-center'">
+                <div class="flex items-center transition-all duration-300" :class="sidebarOpen ? 'gap-3' : 'gap-0'">
+                    <div class="w-12 h-12 rounded-2xl bg-slate-700 flex-shrink-0 border-2 border-indigo-500/50 overflow-hidden shadow-lg">
                         <img src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}&background=4F46E5&color=fff" alt="" class="w-full h-full object-cover">
                     </div>
-                    <div class="flex-col overflow-hidden" x-show="sidebarOpen">
+                    <div class="flex-col overflow-hidden transition-all duration-300" x-show="sidebarOpen">
                         <div class="text-sm font-bold text-white truncate">{{ Auth::user()->name }}</div>
                         <div class="text-[0.7rem] text-[#8c8c9a] font-medium tracking-wide uppercase">Agente Activo</div>
                     </div>
