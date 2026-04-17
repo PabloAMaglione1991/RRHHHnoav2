@@ -80,7 +80,7 @@
         </aside>
 
         <!-- Main Content -->
-        <main :class="sidebarOpen ? 'ml-64' : 'ml-0 lg:ml-20'" class="flex-1 transition-all duration-300 ease-in-out min-h-screen">
+        <main :class="sidebarOpen ? 'ml-[280px]' : 'ml-0 lg:ml-[100px]'" class="flex-1 transition-all duration-300 ease-in-out min-h-screen border-l border-slate-200/50">
             <!-- Navbar -->
             <header class="sticky top-0 z-40 flex items-center justify-between h-20 px-6 bg-white/80 backdrop-blur-md border-b border-slate-200">
                 <div class="flex items-center gap-4">
